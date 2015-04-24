@@ -1,3 +1,4 @@
+# used with Smakn 433Mhz Rx Tx modules
 import os
 import time
 import thread
