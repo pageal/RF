@@ -61,7 +61,7 @@ class receiver():
         print("rcv thread started")
         while(self._stop != True):
             self.read_msg(self._bcm_pin_rx, self._bits_per_sec, self._gpio_obj)
-            time.sleep(1000)
+            time.sleep(1)
 
 
     def start(self):
