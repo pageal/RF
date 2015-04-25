@@ -54,6 +54,7 @@ class tx():
       self.pi = pi
 
       self.txbit = (1<<txgpio)
+      self.txgpio = txgpio
 
       if bps < MIN_BPS:
          bps = MIN_BPS
@@ -123,6 +124,10 @@ class tx():
 
       if self.wave_id >= 0:
          self.pi.wave_send_once(self.wave_id)
+         while(not self.ready()):
+            time.sleep(0.1)
+         time.sleep(0.5)
+         self.pi.write(self.txgpio, 0)
          return True
       else:
          return False
@@ -222,6 +227,7 @@ class rx():
                      return
 
                self.message[self.byte] = byte
+               #print(chr(byte))
 
                self.byte += 1
                self.bits = 0
@@ -294,6 +300,7 @@ class rx():
                      bits = 4
 
                   self._insert(bits, level)
+                  #print("cb: {}, {} ".format(gpio, bits))
 
       self.last_tick = tick
       self.last_level = level
